@@ -12,7 +12,7 @@
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 }
 
@@ -20,4 +20,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.feature {
+  border-radius: 10px;
+  background-color: var(--ifm-color-primary-lighter);
+  margin: 2rem 0;
+  box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: white;
+}
+
+[data-theme='dark'] .feature {
+  color: black;
 }
