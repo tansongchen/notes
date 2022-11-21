@@ -38,7 +38,3 @@
   text-decoration: none;
   color: white;
 }
-
-[data-theme='dark'] .feature {
-  color: black;
-}

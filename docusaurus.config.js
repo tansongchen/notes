@@ -5,9 +5,7 @@ const math = require('remark-math');
 const katex = require('rehype-katex');
 const wikiLinkPlugin = require('remark-wiki-link');
 const walkSync = require('walk-sync');
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const meta = JSON.parse(require('fs').readFileSync('meta.json', { encoding: 'utf-8' }));
 
@@ -33,8 +31,9 @@ const wikilink = [
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '谭淞宸的知识库',
-  tagline: 'A Digital Garden',
+  tagline: '沉淀知识，激发思想',
   url: 'https://notes.tansongchen.com',
+  trailingSlash: true,
   baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -140,7 +139,19 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'profession',
             position: 'left',
-            label: '专业知识'
+            label: '职业/工作'
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'development',
+            position: 'left',
+            label: '成长/学习'
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'creation',
+            position: 'left',
+            label: '创造/兴趣'
           },
           {
             href: 'https://tansongchen.com',
@@ -155,8 +166,10 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
       },
+      colorMode: {
+        disableSwitch: true,
+      }
     }),
 
   stylesheets: [

@@ -31,6 +31,16 @@ const sidebars = {
     folder('TypeScript'),
     folder('Julia'),
   ],
+  development: [
+    folder('科学学习'),
+    folder('知识内化'),
+    folder('自我管理'),
+    folder('目标管理'),
+  ],
+  creation: [
+    folder('图像信号处理'),
+    folder('视频信号处理'),
+  ]
 };
 
 module.exports = sidebars;
