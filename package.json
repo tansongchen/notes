@@ -20,7 +20,6 @@
     "@docusaurus/core": "2.2.0",
     "@docusaurus/plugin-pwa": "^2.2.0",
     "@docusaurus/preset-classic": "2.2.0",
-    "@easyops-cn/docusaurus-search-local": "^0.33.5",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.2.1",
     "hast-util-is-element": "^1.1.0",
@@ -35,10 +34,10 @@
     "walk-sync": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.2.0",
-    "@tsconfig/docusaurus": "^1.0.5",
+    "@docusaurus/module-type-aliases": "^2.2.0",
+    "@tsconfig/docusaurus": "^1.0.6",
     "dotenv": "^16.0.3",
-    "typescript": "^4.7.4"
+    "typescript": "^4.9.3"
   },
   "browserslist": {
     "production": [
