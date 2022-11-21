@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotes=self.webpackChunknotes||[]).push([[8608],{92105:e=>{e.exports=JSON.parse('{"title":"\u8ba1\u7b97\u673a\u79d1\u5b66","slug":"/category/\u8ba1\u7b97\u673a\u79d1\u5b66","permalink":"/category/\u8ba1\u7b97\u673a\u79d1\u5b66","navigation":{"next":{"title":"Bell \u6001","permalink":"/\u8ba1\u7b97\u673a\u79d1\u5b66/Bell \u6001"}}}')}}]);

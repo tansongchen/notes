@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunknotes=self.webpackChunknotes||[]).push([[9945],{56696:e=>{e.exports=JSON.parse('{"title":"TypeScript","slug":"/category/typescript","permalink":"/category/typescript","navigation":{"previous":{"title":"\u7ebf\u7a0b\u963b\u585e","permalink":"/C++/\u7ebf\u7a0b\u963b\u585e"},"next":{"title":"Arrays","permalink":"/TypeScript/Arrays"}}}')}}]);
