@@ -30,34 +30,39 @@ const wikilink = [
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  // Site metadata
   title: '谭淞宸的知识库',
   tagline: '沉淀知识，激发思想',
   url: 'https://notes.tansongchen.com',
   trailingSlash: true,
   baseUrl: '/',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'favicon.ico',
-
-  // GitHub pages deployment config.
-  organizationName: 'tansongchen',
-  projectName: 'notes',
-
   i18n: {
     defaultLocale: 'zh-Hans',
     locales: ['zh-Hans'],
   },
 
+  // GitHub pages deployment config
+  organizationName: 'tansongchen',
+  projectName: 'notes',
+  githubHost: 'tansongchen',
+
   plugins: [
+    '@docusaurus/plugin-content-pages',
+    [
+      '@docusaurus/plugin-content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      {
+        routeBasePath: '/',
+        sidebarPath: require.resolve('./sidebars.js'),
+        remarkPlugins: [math, wikilink],
+        rehypePlugins: [katex],
+      }
+    ],
     [
       '@docusaurus/plugin-pwa',
       {
-        debug: true,
-        offlineModeActivationStrategies: [
-          'appInstalled',
-          'standalone',
-          'queryString',
-        ],
         pwaHead: [
           {
             tagName: 'link',
@@ -94,30 +99,19 @@ const config = {
     ],
   ],
 
-  // themes: ['@docusaurus/theme-search-algolia'],
-
-  presets: [
+  themes: [
     [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
-          remarkPlugins: [math, wikilink],
-          rehypePlugins: [katex],
-        },
-        blog: false,
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
+      '@docusaurus/theme-classic',
+      /** @type {import('@docusaurus/theme-classic').Options} */
+      {
+        customCss: require.resolve('./src/css/custom.css'),
+      },
     ],
+    // '@docusaurus/theme-search-algolia'
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
+    {
       navbar: {
         title: '谭淞宸的知识库',
         logo: {
@@ -158,6 +152,7 @@ const config = {
       },
       prism: {
         theme: lightCodeTheme,
+        additionalLanguages: ['julia'],
       },
       colorMode: {
         disableSwitch: true,
@@ -167,7 +162,7 @@ const config = {
       //   apiKey: 'YOUR_SEARCH_API_KEY',
       //   indexName: 'YOUR_INDEX_NAME',
       // },
-    }),
+    },
 
   stylesheets: [
     {

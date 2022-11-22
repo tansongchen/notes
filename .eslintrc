@@ -1,0 +1,10 @@
+{
+    "plugins": ["@docusaurus"],
+    "extends": ["plugin:@docusaurus/all"],
+    "env": {
+        "es6": true
+    },
+    "rules": {
+        "no-restricted-imports":"off"
+    }
+}
