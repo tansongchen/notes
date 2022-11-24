@@ -6,7 +6,7 @@ import Layout from '@theme/Layout';
 export default function Home(): JSX.Element {
   return (
     <Layout
-      description="404">
+      description="该笔记尚未创建。">
       <main>
         <div className="container" style={{padding: "2rem"}}>
           <p>

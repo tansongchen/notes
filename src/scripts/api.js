@@ -1,31 +1,30 @@
 const fs = require('fs');
+const walkSync = require('walk-sync');
+const { config } = require('dotenv');
+const { basename } = require('path');
 
-require('dotenv').config({
-  path: `.env`,
-});
+config({ path: `.env` });
 
-const preprocess = (content) => {
-  // content = content.replaceAll(/---\n.+---\n+/gs, '')
-  const body = content.replaceAll(/^(#+)/gm, '#$1');
-  return body;
+const preprocess = (/** @type {string} */ basename, /** @type {string} */ content) => {
+  content = content.trimStart();
+  if (content.match(/\-\-\-\n(.|\n)*\n\-\-\-/g) !== null) {
+    content = content.replace(/\-\-\-(\n(.|\n)*\n)\-\-\-/g, `---$1slug: '/${basename}'\n---`);
+  } else {
+    content = `---\nslug: '/${basename}'\n---\n` + content;
+  }
+  content = content.replaceAll(/^(#+)/gm, '#$1');
+  return content;
 }
 
-for (const dirname of fs.readdirSync('docs')) {
-  const dst = `docs/${dirname}`;
-  if (fs.lstatSync(dst).isDirectory()) {
-    fs.rmSync(`docs/${dirname}`, { recursive: true });
+fs.rmSync(`docs`, { recursive: true, force: true });
+fs.mkdirSync(`docs`);
+for (const fileOrFolder of fs.readdirSync(process.env.VAULT)) {
+  if (!fileOrFolder.startsWith('.')) {
+    fs.cpSync(`${process.env.VAULT}/${fileOrFolder}`, `docs/${fileOrFolder.split('-').slice(-1).join('').trim()}`, { recursive: true });
   }
 }
 
-for (const dirname of fs.readdirSync(process.env.VAULT)) {
-  const src = `${process.env.VAULT}${dirname}`;
-  if (!dirname.startsWith('.') && (dirname !== '模板' && dirname !== '附件') && fs.lstatSync(src).isDirectory()) {
-    const basename = dirname.split('-')[1].trim();
-    const dst = `docs/${basename}`;
-    fs.mkdirSync(dst)
-    for (const filename of fs.readdirSync(src)) {
-      const content = fs.readFileSync(`${src}/${filename}`, 'utf-8');
-      fs.writeFileSync(`${dst}/${filename}`, preprocess(content));
-    }
-  }
+for (const file of walkSync(`docs`, { globs: [`**/*.md`, `**/*.mdx`]})) {
+  const content = fs.readFileSync(`docs/${file}`, { encoding: 'utf-8' });
+  fs.writeFileSync(`docs/${file}`, preprocess(basename(file, '.md'), content), { encoding: 'utf-8' });
 }

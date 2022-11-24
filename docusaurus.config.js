@@ -6,6 +6,7 @@ const katex = require('rehype-katex');
 const wikiLinkPlugin = require('remark-wiki-link');
 const walkSync = require('walk-sync');
 const lightCodeTheme = require('prism-react-renderer/themes/github');
+const { basename } = require('path');
 
 const meta = JSON.parse(require('fs').readFileSync('meta.json', { encoding: 'utf-8' }));
 
@@ -16,7 +17,7 @@ const wikilink = [
       const paths = walkSync('docs', {
         globs: ["**/" + wikilink + ".md"],
         directories: false,
-      }).map((path) => path.replace(".md", ""));
+      }).map((path) => basename(path, '.md'));
       if (paths.length) {
         return paths;
       } else {
@@ -58,6 +59,10 @@ const config = {
         sidebarPath: require.resolve('./sidebars.js'),
         remarkPlugins: [math, wikilink],
         rehypePlugins: [katex],
+        exclude: [
+          '**/模板/**',
+          '**/附件/**'
+        ]
       }
     ],
     [

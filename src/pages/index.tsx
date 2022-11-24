@@ -13,15 +13,15 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: '职业/工作',
-    url: '/category/计算机科学'
+    url: '/专业素养'
   },
   {
     title: '成长/学习',
-    url: '/category/科学学习'
+    url: '/科学学习'
   },
   {
     title: '创造/兴趣',
-    url: '/category/图像信号处理'
+    url: '/影像'
   },
 ];
 
