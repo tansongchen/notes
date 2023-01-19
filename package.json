@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "pwa": "node src/scripts/pwa.js",
-    "api": "node src/scripts/api.js",
+    "crawl": "docker run -it --env-file=.env -e \"CONFIG=$(cat config.json | jq -r tostring)\" algolia/docsearch-scraper",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
@@ -18,9 +17,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.2.0",
-    "@docusaurus/plugin-content-docs": "^2.2.0",
     "@docusaurus/plugin-content-pages": "^2.2.0",
-    "@docusaurus/plugin-pwa": "^2.2.0",
     "@docusaurus/theme-classic": "^2.2.0",
     "@docusaurus/theme-search-algolia": "^2.2.0",
     "@mdx-js/react": "^1.6.22",
