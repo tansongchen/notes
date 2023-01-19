@@ -97,7 +97,7 @@ const config = {
         partialManifest: {
           "name": name,
           "short_name": name,
-          "theme_color": "#2e8555",
+          "theme_color": "#c45",
           "background_color": "#222222",
           "display": "standalone",
           "scope": "./",
