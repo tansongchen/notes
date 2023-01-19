@@ -1,14 +1,36 @@
 // @ts-check
-// Note: type annotations allow type checking and IDEs autocompletion
 
 const math = require('remark-math');
 const katex = require('rehype-katex');
 const wikiLinkPlugin = require('remark-wiki-link');
 const walkSync = require('walk-sync');
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const { basename } = require('path');
+const { basename, join } = require('path');
+const { readdirSync, cpSync, writeFileSync, readFileSync } = require('fs');
 
-const meta = JSON.parse(require('fs').readFileSync('meta.json', { encoding: 'utf-8' }));
+const preprocess = (/** @type {string} */ basename, /** @type {string} */ content) => {
+  content = content.trimStart();
+  if (content.match(/\-\-\-\n(.|\n)*\n\-\-\-/g) !== null) {
+    content = content.replace(/\-\-\-(\n(.|\n)*\n)\-\-\-/g, `---$1slug: '/${basename}'\n---`);
+  } else {
+    content = `---\nslug: '/${basename}'\n---\n` + content;
+  }
+  content = content.replace(/^(#+)/gm, '#$1');
+  return content;
+}
+
+const downloader = (/** @type {string} */ root) => {
+  const submodule = 'obsidian';
+  for (const fileOrFolder of readdirSync(submodule)) {
+    if (!fileOrFolder.startsWith('.')) {
+      cpSync(join(submodule, fileOrFolder), join(root, fileOrFolder.split('-').slice(-1).join('').trim()), { recursive: true });
+    }
+  }
+
+  for (const file of walkSync(root, { globs: [`**/*.md`, `**/*.mdx`]})) {
+    const content = readFileSync(join(root, file), { encoding: 'utf-8' });
+    writeFileSync(join(root, file), preprocess(basename(file, '.md'), content), { encoding: 'utf-8' });
+  }
+}
 
 const wikilink = [
   wikiLinkPlugin,
@@ -29,10 +51,12 @@ const wikilink = [
   },
 ];
 
+const name = '谭淞宸的知识库';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   // Site metadata
-  title: '谭淞宸的知识库',
+  title: name,
   tagline: '沉淀知识，激发思想',
   url: 'https://notes.tansongchen.com',
   trailingSlash: true,
@@ -52,55 +76,34 @@ const config = {
   plugins: [
     '@docusaurus/plugin-content-pages',
     [
-      '@docusaurus/plugin-content-docs',
-      /** @type {import('@docusaurus/plugin-content-docs').Options} */
-      {
+      'docusaurus-plugin-remote-docs',
+      /** @type {import('docusaurus-plugin-remote-docs').PluginOptions} */
+      ({
         routeBasePath: '/',
         sidebarPath: require.resolve('./sidebars.js'),
         remarkPlugins: [math, wikilink],
         rehypePlugins: [katex],
-        exclude: [
-          '**/模板/**',
-          '**/附件/**'
-        ]
-      }
+        downloader: downloader
+      })
     ],
     [
-      '@docusaurus/plugin-pwa',
-      {
-        pwaHead: [
-          {
-            tagName: 'link',
-            rel: 'icon',
-            href: '/apple-icon-180.png',
-          },
-          {
-            tagName: 'link',
-            rel: 'manifest',
-            href: '/manifest.json',
-          },
-          {
-            tagName: 'meta',
-            name: 'theme-color',
-            content: 'rgb(255, 136, 136)',
-          },
-          {
-            tagName: 'meta',
-            name: 'apple-mobile-web-app-capable',
-            content: 'yes',
-          },
-          {
-            tagName: 'meta',
-            name: 'apple-mobile-web-app-status-bar-style',
-            content: '#000',
-          },
-          {
-            tagName: 'link',
-            rel: 'apple-touch-icon',
-            href: '/apple-icon-180.png',
-          },
-        ].concat(meta),
-      },
+      'docusaurus-plugin-pwa-generator',
+      /** @type {import('docusaurus-plugin-pwa-generator').Options} */
+      ({
+        generatorInput: {
+          source: 'static/favicon.ico',
+          options: { log: false, padding: '0' }
+        },
+        partialManifest: {
+          "name": name,
+          "short_name": name,
+          "theme_color": "#2e8555",
+          "background_color": "#222222",
+          "display": "standalone",
+          "scope": "./",
+          "start_url": "./index.html"
+        },
+      })
     ],
   ],
 
@@ -156,7 +159,7 @@ const config = {
         copyright: `CC-BY-SA 4.0 © 2022 - ${new Date().getFullYear()} 谭淞宸`,
       },
       prism: {
-        theme: lightCodeTheme,
+        theme: require('prism-react-renderer/themes/github'),
         additionalLanguages: ['julia'],
       },
       colorMode: {
