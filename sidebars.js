@@ -32,6 +32,7 @@ const sidebars = {
   development: [
     summary('科学学习', ['知识输入', '知识内化']),
     summary('自我管理', ['时间管理', '目标管理']),
+    summary('万物原理', ['艺术']),
   ],
   creation: [
     summary('影像', ['摄影光学', '图像信号处理', '视频信号处理', '视觉叙事']),
