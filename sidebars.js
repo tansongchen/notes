@@ -30,13 +30,12 @@ const sidebars = {
     summary('MIT 研究助理', ['高阶自动微分']),
   ],
   development: [
-    summary('科学学习', ['知识输入', '知识内化']),
-    summary('自我管理', ['时间管理', '目标管理']),
-    summary('万物原理', ['艺术']),
+    folder('科学学习'),
+    folder('自我管理'),
   ],
   creation: [
-    summary('影像', ['摄影光学', '图像信号处理', '视频信号处理', '视觉叙事']),
-    summary('编码理论', ['汉字信息工程']),
+    folder('影像'),
+    folder('汉字信息工程'),
   ]
 };
 
