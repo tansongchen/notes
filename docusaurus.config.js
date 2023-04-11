@@ -86,25 +86,25 @@ const config = {
         downloader: downloader
       })
     ],
-    [
-      'docusaurus-plugin-pwa-generator',
-      /** @type {import('docusaurus-plugin-pwa-generator').Options} */
-      ({
-        generatorInput: {
-          source: 'static/favicon.ico',
-          options: { log: false, padding: '0' }
-        },
-        partialManifest: {
-          "name": name,
-          "short_name": name,
-          "theme_color": "#c45",
-          "background_color": "#222222",
-          "display": "standalone",
-          "scope": "./",
-          "start_url": "./index.html"
-        },
-      })
-    ],
+    // [
+    //   'docusaurus-plugin-pwa-generator',
+    //   /** @type {import('docusaurus-plugin-pwa-generator').Options} */
+    //   ({
+    //     generatorInput: {
+    //       source: 'static/favicon.ico',
+    //       options: { log: false, padding: '0' }
+    //     },
+    //     partialManifest: {
+    //       "name": name,
+    //       "short_name": name,
+    //       "theme_color": "#c45",
+    //       "background_color": "#222222",
+    //       "display": "standalone",
+    //       "scope": "./",
+    //       "start_url": "./index.html"
+    //     },
+    //   })
+    // ],
   ],
 
   themes: [
